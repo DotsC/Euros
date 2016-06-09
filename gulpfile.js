@@ -17,7 +17,7 @@ var minifyCSS = require('gulp-minify-css');
 
 var connect = require('gulp-connect');
 var gutil = require('gulp-util');
-var compass = require('gulp-compass');
+//var compass = require('gulp-compass');
 
 var ts = require('gulp-typescript');
 
@@ -30,7 +30,6 @@ gulp.task('imagemin', function(){
 		.pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true })))
 		.pipe(gulp.dest(imgDst));
 });
-
 
 // minify new or changed HTML pages
 gulp.task('htmlpage', function() {
@@ -55,12 +54,12 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('styles', function() {
-	/*gulp.src(['./src/styles/*.css'])
+	gulp.src(['./src/styles/*.css'])
 		.pipe(concat('style.css'))
 		.pipe(autoprefix('last 2 versions'))
 		.pipe(minifyCSS())
-		.pipe(gulp.dest('./build/style/'));*/
-		gulp.src('./assets/css/*.scss')
+		.pipe(gulp.dest('./build/styles/'));
+		/*gulp.src('./assets/css/*.scss')
 			.pipe(compass({
 				config_file: './config.rb',
             	sass: 'src/sass',
@@ -70,7 +69,7 @@ gulp.task('styles', function() {
 				console.log(err)
 			})
 			.pipe(minifyCSS())
-			.pipe(gulp.dest('./build/style/'));
+			.pipe(gulp.dest('./build/style/'));*/
 });
 
 gulp.task('connect', function() {
