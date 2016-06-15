@@ -20,6 +20,8 @@ var gutil = require('gulp-util');
 //var compass = require('gulp-compass');
 
 var ts = require('gulp-typescript');
+var sourcemaps = require('gulp-sourcemaps');
+
 
 gulp.task('imagemin', function(){
 	var imgSrc = './src/images/**/*';
@@ -42,7 +44,7 @@ gulp.task('htmlpage', function() {
 });
 
 // TS concat, strip debugging and minify
-gulp.task('scripts', function() {
+gulp.task('typescripts', function() {
 	var tsSrc = './src/scripts/*.ts',
 	jsDest = './build/scripts/';
 	gulp.src(tsSrc)
@@ -52,6 +54,20 @@ gulp.task('scripts', function() {
 		.pipe(uglify())
 		.pipe(gulp.dest(jsDest));	
 });
+
+gulp.task('javascripts', function() {
+
+	var jsSrc = './src/scripts/*.js',
+	jsDest = './build/scripts/';
+
+	gulp.src(jsSrc)
+		.pipe(sourcemaps.init())
+		.pipe(concat('libs.min.js'))
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(jsDest));
+})
+
+
 
 gulp.task('styles', function() {
 	gulp.src(['./src/styles/*.css'])
@@ -80,7 +96,7 @@ gulp.task('connect', function() {
 });
 
 // build task
-gulp.task('build', ['imagemin', 'htmlpage', 'scripts', 'styles'], function() {});
+gulp.task('build', ['imagemin', 'htmlpage', 'javascripts', 'typescripts', 'styles'], function() {});
 
 
 //default
